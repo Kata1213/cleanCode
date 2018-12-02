@@ -5,10 +5,6 @@ public abstract class ArgumentMarshaler {
     private String stringValue ;
     private int integerValue;
 
-    public boolean getBoolean() {
-        return booleanValue;
-    }
-
     public String getStringValue() {
         return stringValue == null ? "" : stringValue;
     }
