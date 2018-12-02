@@ -21,13 +21,13 @@ public class Args {
     private enum ErrorCode {
         OK, MISSING_STRING, MISSING_INTEGER, INVALID_INTEGER, UNEXPECTED_ARGUMENT}
 
-    public Args(String schema, String[] args) throws ParseException {
+    public Args(String schema, String[] args) throws ParseException, ArgumentException {
         this.schema = schema;
         this.args = args;
         valid = parse();
     }
 
-    private boolean parse() throws ParseException {
+    private boolean parse() throws ParseException, ArgumentException {
         if (schema.length() == 0 && args.length == 0)
             return true;
         parseSchema();
@@ -96,7 +96,7 @@ public class Args {
         return elementTail.equals("#");
     }
 
-    private boolean parseArguments() throws ArgsException {
+    private boolean parseArguments() throws ArgsException, ArgumentException {
         for (currentArgument = 0; currentArgument < args.length; currentArgument++)
         {
             String arg = args[currentArgument];
@@ -105,17 +105,17 @@ public class Args {
         return true;
     }
 
-    private void parseArgument(String arg) throws ArgsException {
+    private void parseArgument(String arg) throws ArgsException, ArgumentException {
         if (arg.startsWith("-"))
             parseElements(arg);
     }
 
-    private void parseElements(String arg) throws ArgsException {
+    private void parseElements(String arg) throws ArgsException, ArgumentException {
         for (int i = 1; i < arg.length(); i++)
             parseElement(arg.charAt(i));
     }
 
-    private void parseElement(char argChar) throws ArgsException {
+    private void parseElement(char argChar) throws ArgsException, ArgumentException {
         if (setArgument(argChar))
             argsFound.add(argChar);
         else {
@@ -125,7 +125,7 @@ public class Args {
         }
     }
 
-    private boolean setArgument(char argChar) throws ArgsException {
+    private boolean setArgument(char argChar) throws ArgsException, ArgumentException {
         if (isBooleanArg(argChar))
             setBooleanArg(argChar, true);
         else if (isStringArg(argChar))
@@ -175,7 +175,7 @@ public class Args {
         return stringArgs.containsKey(argChar);
     }
 
-    private void setBooleanArg(char argChar, boolean value) {
+    private void setBooleanArg(char argChar, boolean value) throws ArgumentException {
         booleanArgs.get(argChar).set("true");
     }
 

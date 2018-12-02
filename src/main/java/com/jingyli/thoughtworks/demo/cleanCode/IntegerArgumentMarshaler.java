@@ -15,6 +15,6 @@ public class IntegerArgumentMarshaler extends ArgumentMarshaler{
 
     @Override
     public Object get() {
-        return integerValue;
+        return intValue;
     }
 }
