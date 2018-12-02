@@ -1,6 +1,7 @@
 package com.jingyli.thoughtworks.demo.cleanCode;
 
 public class StringArgumentMarshaler extends ArgumentMarshaler{
+    private String stringValue="";
 
     @Override
     public void set(String s) {
@@ -9,6 +10,6 @@ public class StringArgumentMarshaler extends ArgumentMarshaler{
 
     @Override
     public Object get() {
-        return stringValue == null ? "" : stringValue;
+        return stringValue;
     }
 }
