@@ -1,13 +1,9 @@
 package com.jingyli.thoughtworks.demo.cleanCode;
 
 public abstract class ArgumentMarshaler {
-    private boolean booleanValue = false;
+    protected boolean booleanValue = false;
     private String stringValue ;
     private int integerValue;
-
-    public void setBoolean(boolean value) {
-        booleanValue = value;
-    }
 
     public boolean getBoolean() {
         return booleanValue;
@@ -28,5 +24,7 @@ public abstract class ArgumentMarshaler {
     public void setIntegerValue(int integerValue) {
         this.integerValue = integerValue;
     }
+
+    public abstract void set(String s);
 }
 
