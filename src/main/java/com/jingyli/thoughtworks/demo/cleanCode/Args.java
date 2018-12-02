@@ -166,7 +166,7 @@ public class Args {
         }
     }
 
-    private void setStringArg(char argChar) throws ArgsException {
+    private void setStringArg(char argChar) throws ArgsException, ArgumentException {
         currentArgument++;
         try {
             stringArgs.get(argChar).set(args[currentArgument]);
