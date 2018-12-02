@@ -135,49 +135,43 @@ public class Args {
     private boolean setArgument(char argChar) throws ArgsException, ArgumentException {
         ArgumentMarshaler am = marshalerMap.get(argChar);
         if(am instanceof BooleanArgumentMarshaler)
-            setBooleanArg(argChar);
+            setBooleanArg(am);
         else if(am instanceof StringArgumentMarshaler)
-            setStringArg(argChar);
+            setStringArg(am);
         else if(am instanceof IntegerArgumentMarshaler)
-            setIntArg(argChar);
+            setIntArg(am);
         else return false;
         return true;
     }
 
-    private void setIntArg(char argChar) throws ArgsException, ArgumentException {
+    private void setIntArg(ArgumentMarshaler argumentMarshaler) throws ArgsException, ArgumentException {
         currentArgument++;
         String parameter = null;
         try {
             parameter = args[currentArgument];
-            intArgs.get(argChar).set(parameter);
+            argumentMarshaler.set(parameter);
         } catch (ArrayIndexOutOfBoundsException e) {
-            valid = false;
-            errorArgumentId = argChar;
             errorCode = ErrorCode.MISSING_INTEGER;
             throw new ArgsException();
         } catch (ArgumentException e) {
-            valid = false;
-            errorArgumentId = argChar;
             errorParameter = parameter;
             errorCode = ErrorCode.INVALID_INTEGER;
             throw e;
         }
     }
 
-    private void setStringArg(char argChar) throws ArgsException, ArgumentException {
+    private void setStringArg(ArgumentMarshaler argumentMarshaler) throws ArgsException, ArgumentException {
         currentArgument++;
         try {
-            stringArgs.get(argChar).set(args[currentArgument]);
+            argumentMarshaler.set(args[currentArgument]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            valid = false;
-            errorArgumentId = argChar;
             errorCode = ErrorCode.MISSING_STRING;
             throw new ArgsException();
         }
     }
 
-    private void setBooleanArg(char argChar) throws ArgumentException {
-        booleanArgs.get(argChar).set("true");
+    private void setBooleanArg(ArgumentMarshaler argumentMarshaler) throws ArgumentException {
+        argumentMarshaler.set("true");
     }
 
     public int cardinality() {
@@ -232,17 +226,17 @@ public class Args {
     }
 
     public String getString(char arg) {
-        ArgumentMarshaler am = stringArgs.get(arg);
+        ArgumentMarshaler am = marshalerMap.get(arg);
         return am == null ? "" : (String) am.get();
     }
 
     public int getInt(char arg) {
-        ArgumentMarshaler am = intArgs.get(arg);
+        ArgumentMarshaler am = marshalerMap.get(arg);
         return am == null ? 0 : (Integer) am.get();
     }
 
     public boolean getBoolean(char arg) {
-        ArgumentMarshaler am = booleanArgs.get(arg);
+        ArgumentMarshaler am = marshalerMap.get(arg);
         return am != null && (Boolean) am.get();
     }
 
