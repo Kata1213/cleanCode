@@ -139,23 +139,23 @@ public class Args {
 
     private boolean isIntArg(char argChar) {return intArgs.containsKey(argChar);}
 
-    private void setIntArg(char argChar) throws ArgsException {
+    private void setIntArg(char argChar) throws ArgsException, ArgumentException {
         currentArgument++;
         String parameter = null;
         try {
             parameter = args[currentArgument];
-            intArgs.get(argChar).setIntegerValue(Integer.parseInt(parameter));
+            intArgs.get(argChar).set(parameter);
         } catch (ArrayIndexOutOfBoundsException e) {
             valid = false;
             errorArgumentId = argChar;
             errorCode = ErrorCode.MISSING_INTEGER;
             throw new ArgsException();
-        } catch (NumberFormatException e) {
+        } catch (ArgumentException e) {
             valid = false;
             errorArgumentId = argChar;
             errorParameter = parameter;
             errorCode = ErrorCode.INVALID_INTEGER;
-            throw new ArgsException();
+            throw e;
         }
     }
 
@@ -241,7 +241,7 @@ public class Args {
 
     public int getInt(char arg) {
         ArgumentMarshaler am = intArgs.get(arg);
-        return am == null ? 0 : am.getIntegerValue();
+        return am == null ? 0 : (Integer) am.get();
     }
 
     public boolean getBoolean(char arg) {
