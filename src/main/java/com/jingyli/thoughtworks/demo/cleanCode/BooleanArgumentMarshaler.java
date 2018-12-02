@@ -6,4 +6,9 @@ public class BooleanArgumentMarshaler extends ArgumentMarshaler {
     public void set(String s) {
         booleanValue = true;
     }
+
+    @Override
+    public Object get() {
+        return booleanValue;
+    }
 }
