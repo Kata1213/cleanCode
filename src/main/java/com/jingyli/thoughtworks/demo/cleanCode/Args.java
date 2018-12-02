@@ -10,8 +10,9 @@ public class Args {
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
     private Map<Character, ArgumentMarshaler> booleanArgs = new HashMap<Character, ArgumentMarshaler>();
-    private Map<Character, StringArgumentMarshaler> stringArgs = new HashMap<Character, StringArgumentMarshaler>();
-    private Map<Character, IntegerArgumentMarshaler> intArgs = new HashMap<Character, IntegerArgumentMarshaler>();
+    private Map<Character, ArgumentMarshaler> stringArgs = new HashMap<Character, ArgumentMarshaler>();
+    private Map<Character, ArgumentMarshaler> intArgs = new HashMap<Character, ArgumentMarshaler>();
+    private Map<Character, ArgumentMarshaler> marshalerMap = new HashMap<Character, ArgumentMarshaler>();
     private Set<Character> argsFound = new HashSet<Character>();
     private int currentArgument;
     private char errorArgumentId = '\0';
@@ -73,15 +74,21 @@ public class Args {
     }
 
     private void parseBooleanSchemaElement(char elementId) {
+        ArgumentMarshaler am = new BooleanArgumentMarshaler();
         booleanArgs.put(elementId, new BooleanArgumentMarshaler());
+        marshalerMap.put(elementId,am);
     }
 
     private void parseIntegerSchemaElement(char elementId) {
+        ArgumentMarshaler am = new IntegerArgumentMarshaler();
         intArgs.put(elementId, new IntegerArgumentMarshaler());
+        marshalerMap.put(elementId,am);
     }
 
     private void parseStringSchemaElement(char elementId) {
+        ArgumentMarshaler am = new StringArgumentMarshaler();
         stringArgs.put(elementId, new StringArgumentMarshaler());
+        marshalerMap.put(elementId,am);
     }
 
     private boolean isStringSchemaElement(String elementTail) {
