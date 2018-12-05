@@ -113,13 +113,21 @@ public class Args {
 
     private boolean setArgument(char argChar) throws ArgsException, ArgumentException {
         ArgumentMarshaler am = marshalerMap.get(argChar);
-        if(am instanceof BooleanArgumentMarshaler)
-            setBooleanArg(am);
-        else if(am instanceof StringArgumentMarshaler)
-            setStringArg(am);
-        else if(am instanceof IntegerArgumentMarshaler)
-            setIntArg(am);
-        else return false;
+        if (am == null) {
+            return false;
+        }
+        try {
+            if (am instanceof BooleanArgumentMarshaler)
+                setBooleanArg(am);
+            else if (am instanceof StringArgumentMarshaler)
+                setStringArg(am);
+            else if (am instanceof IntegerArgumentMarshaler)
+                setIntArg(am);
+        } catch (ArgumentException e) {
+            valid = false;
+            errorArgumentId = argChar;
+            throw e;
+        }
         return true;
     }
 
