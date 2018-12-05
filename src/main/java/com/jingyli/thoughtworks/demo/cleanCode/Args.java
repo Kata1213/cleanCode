@@ -227,17 +227,29 @@ public class Args {
 
     public String getString(char arg) {
         ArgumentMarshaler am = marshalerMap.get(arg);
+        try{
         return am == null ? "" : (String) am.get();
+        }catch (ClassCastException e){
+            return "";
+        }
     }
 
     public int getInt(char arg) {
         ArgumentMarshaler am = marshalerMap.get(arg);
+        try {
         return am == null ? 0 : (Integer) am.get();
+        }catch (ClassCastException e){
+            return 0;
+        }
     }
 
     public boolean getBoolean(char arg) {
         ArgumentMarshaler am = marshalerMap.get(arg);
-        return am != null && (Boolean) am.get();
+        try {
+            return am != null && (Boolean) am.get();
+        } catch (ClassCastException e) {
+            return false;
+        }
     }
 
     public boolean has(char arg) {
