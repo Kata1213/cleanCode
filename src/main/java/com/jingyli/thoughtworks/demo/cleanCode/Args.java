@@ -9,7 +9,6 @@ public class Args {
     private String[] args;
     private boolean valid = true;
     private Set<Character> unexpectedArguments = new TreeSet<Character>();
-    private Map<Character, ArgumentMarshaler> stringArgs = new HashMap<Character, ArgumentMarshaler>();
     private Map<Character, ArgumentMarshaler> marshalerMap = new HashMap<Character, ArgumentMarshaler>();
     private Set<Character> argsFound = new HashSet<Character>();
     private int currentArgument;
@@ -83,7 +82,6 @@ public class Args {
 
     private void parseStringSchemaElement(char elementId) {
         ArgumentMarshaler am = new StringArgumentMarshaler();
-        stringArgs.put(elementId, new StringArgumentMarshaler());
         marshalerMap.put(elementId,am);
     }
 
