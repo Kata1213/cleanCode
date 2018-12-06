@@ -26,8 +26,10 @@ public class IntegerArgumentMarshaler extends ArgumentMarshaler{
         String parameter;
         try {
             parameter = currentArgument.next();
-            set(parameter);
-        }catch (NoSuchElementException e){
+            intValue = Integer.parseInt(parameter);
+        } catch (NoSuchElementException e) {
+            throw new ArgumentException();
+        } catch (NumberFormatException e) {
             throw new ArgumentException();
         }
     }
