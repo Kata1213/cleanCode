@@ -121,9 +121,9 @@ public class Args {
             if (am instanceof BooleanArgumentMarshaler)
                 am.set(currentArgument);
             else if (am instanceof StringArgumentMarshaler)
-                setStringArg(am);
+                am.set(currentArgument);
             else if (am instanceof IntegerArgumentMarshaler)
-                setIntArg(am);
+                am.set(currentArgument);
         } catch (ArgumentException e) {
             valid = false;
             errorArgumentId = argChar;

@@ -2,6 +2,7 @@ package com.jingyli.thoughtworks.demo.cleanCode;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class IntegerArgumentMarshaler extends ArgumentMarshaler{
     private int intValue=0;
@@ -22,6 +23,12 @@ public class IntegerArgumentMarshaler extends ArgumentMarshaler{
 
     @Override
     public void set(Iterator<String> currentArgument) throws ArgumentException {
-
+        String parameter;
+        try {
+            parameter = currentArgument.next();
+            set(parameter);
+        }catch (NoSuchElementException e){
+            throw new ArgumentException();
+        }
     }
 }
