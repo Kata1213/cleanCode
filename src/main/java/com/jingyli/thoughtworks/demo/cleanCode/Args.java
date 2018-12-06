@@ -118,18 +118,13 @@ public class Args {
             return false;
         }
         try {
-            if (am instanceof BooleanArgumentMarshaler)
-                am.set(currentArgument);
-            else if (am instanceof StringArgumentMarshaler)
-                am.set(currentArgument);
-            else if (am instanceof IntegerArgumentMarshaler)
-                am.set(currentArgument);
+            am.set(currentArgument);
+            return true;
         } catch (ArgumentException e) {
             valid = false;
             errorArgumentId = argChar;
             throw e;
         }
-        return true;
     }
 
     private void setIntArg(ArgumentMarshaler argumentMarshaler) throws ArgsException, ArgumentException {
