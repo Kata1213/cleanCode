@@ -18,11 +18,12 @@ public class Args {
     private List<String> argsList;
 
     private enum ErrorCode {
-        OK, MISSING_STRING, MISSING_INTEGER, INVALID_INTEGER, UNEXPECTED_ARGUMENT}
+        OK, MISSING_STRING, MISSING_INTEGER, INVALID_INTEGER, UNEXPECTED_ARGUMENT
+    }
 
     public Args(String schema, String[] args) throws ParseException, ArgumentException {
         this.schema = schema;
-        argsList= Arrays.asList(args);
+        argsList = Arrays.asList(args);
         valid = parse();
     }
 
@@ -52,9 +53,9 @@ public class Args {
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
         if (isBooleanSchemaElement(elementTail))
-            marshalerMap.put(elementId,new BooleanArgumentMarshaler());
+            marshalerMap.put(elementId, new BooleanArgumentMarshaler());
         else if (isStringSchemaElement(elementTail))
-            marshalerMap.put(elementId,new StringArgumentMarshaler());
+            marshalerMap.put(elementId, new StringArgumentMarshaler());
         else if (isIntegerSchemaElement(elementTail)) {
             marshalerMap.put(elementId, new IntegerArgumentMarshaler());
         } else {
@@ -118,7 +119,7 @@ public class Args {
         }
         try {
             if (am instanceof BooleanArgumentMarshaler)
-                setBooleanArg(am, currentArgument);
+                am.set(currentArgument);
             else if (am instanceof StringArgumentMarshaler)
                 setStringArg(am);
             else if (am instanceof IntegerArgumentMarshaler)
@@ -134,7 +135,7 @@ public class Args {
     private void setIntArg(ArgumentMarshaler argumentMarshaler) throws ArgsException, ArgumentException {
         String parameter = null;
         try {
-            parameter=currentArgument.next();
+            parameter = currentArgument.next();
             argumentMarshaler.set(parameter);
         } catch (NoSuchElementException e) {
             errorCode = ErrorCode.MISSING_INTEGER;
@@ -155,7 +156,7 @@ public class Args {
         }
     }
 
-    private void setBooleanArg(ArgumentMarshaler am,Iterator<String> currentArgument) throws ArgumentException {
+    private void setBooleanArg(ArgumentMarshaler am, Iterator<String> currentArgument) throws ArgumentException {
         am.set("true");
     }
 
@@ -212,9 +213,9 @@ public class Args {
 
     public String getString(char arg) {
         ArgumentMarshaler am = marshalerMap.get(arg);
-        try{
-        return am == null ? "" : (String) am.get();
-        }catch (ClassCastException e){
+        try {
+            return am == null ? "" : (String) am.get();
+        } catch (ClassCastException e) {
             return "";
         }
     }
@@ -222,8 +223,8 @@ public class Args {
     public int getInt(char arg) {
         ArgumentMarshaler am = marshalerMap.get(arg);
         try {
-        return am == null ? 0 : (Integer) am.get();
-        }catch (ClassCastException e){
+            return am == null ? 0 : (Integer) am.get();
+        } catch (ClassCastException e) {
             return 0;
         }
     }
