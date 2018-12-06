@@ -3,11 +3,7 @@ package com.jingyli.thoughtworks.demo.cleanCode;
 import java.util.Iterator;
 
 public class BooleanArgumentMarshaler extends ArgumentMarshaler {
-    private boolean booleanValue=false;
-
-    @Override
-    public void set(String s) {
-    }
+    private boolean booleanValue = false;
 
     @Override
     public Object get() {

@@ -4,17 +4,8 @@ package com.jingyli.thoughtworks.demo.cleanCode;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class IntegerArgumentMarshaler extends ArgumentMarshaler{
-    private int intValue=0;
-
-    @Override
-    public void set(String s) throws ArgumentException {
-        try{
-            intValue=Integer.parseInt(s);
-        }catch (NumberFormatException e){
-            throw new ArgumentException();
-        }
-    }
+public class IntegerArgumentMarshaler extends ArgumentMarshaler {
+    private int intValue = 0;
 
     @Override
     public Object get() {

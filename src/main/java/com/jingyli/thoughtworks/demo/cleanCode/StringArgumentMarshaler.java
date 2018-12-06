@@ -3,11 +3,9 @@ package com.jingyli.thoughtworks.demo.cleanCode;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class StringArgumentMarshaler extends ArgumentMarshaler{
-    private String stringValue="";
+public class StringArgumentMarshaler extends ArgumentMarshaler {
+    private String stringValue = "";
 
-    @Override
-    public void set(String s) { }
 
     @Override
     public Object get() {
@@ -16,9 +14,9 @@ public class StringArgumentMarshaler extends ArgumentMarshaler{
 
     @Override
     public void set(Iterator<String> currentArgument) throws ArgumentException {
-        try{
-            stringValue=currentArgument.next();
-        }catch (NoSuchElementException e){
+        try {
+            stringValue = currentArgument.next();
+        } catch (NoSuchElementException e) {
             throw new ArgumentException();
         }
     }

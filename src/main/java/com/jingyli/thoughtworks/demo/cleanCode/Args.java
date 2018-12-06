@@ -127,33 +127,6 @@ public class Args {
         }
     }
 
-    private void setIntArg(ArgumentMarshaler argumentMarshaler) throws ArgsException, ArgumentException {
-        String parameter = null;
-        try {
-            parameter = currentArgument.next();
-            argumentMarshaler.set(parameter);
-        } catch (NoSuchElementException e) {
-            errorCode = ErrorCode.MISSING_INTEGER;
-            throw new ArgsException();
-        } catch (ArgumentException e) {
-            errorParameter = parameter;
-            errorCode = ErrorCode.INVALID_INTEGER;
-            throw e;
-        }
-    }
-
-    private void setStringArg(ArgumentMarshaler argumentMarshaler) throws ArgsException, ArgumentException {
-        try {
-            argumentMarshaler.set(currentArgument.next());
-        } catch (NoSuchElementException e) {
-            errorCode = ErrorCode.MISSING_STRING;
-            throw new ArgsException();
-        }
-    }
-
-    private void setBooleanArg(ArgumentMarshaler am, Iterator<String> currentArgument) throws ArgumentException {
-        am.set("true");
-    }
 
     public int cardinality() {
         return argsFound.size();
