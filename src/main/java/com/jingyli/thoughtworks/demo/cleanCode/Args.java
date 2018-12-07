@@ -17,10 +17,6 @@ public class Args {
     private ErrorCode errorCode = ErrorCode.OK;
     private List<String> argsList;
 
-    private enum ErrorCode {
-        OK, MISSING_STRING, MISSING_INTEGER, INVALID_INTEGER, UNEXPECTED_ARGUMENT
-    }
-
     public Args(String schema, String[] args) throws ParseException, ArgumentException {
         this.schema = schema;
         argsList = Arrays.asList(args);
