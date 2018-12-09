@@ -12,13 +12,13 @@ public class Args {
     private Iterator<String> currentArgument;
     private List<String> argsList;
 
-    public Args(String schema, String[] args) throws ArgumentException, ArgsException, ParseException {
+    public Args(String schema, String[] args) throws ArgumentException,ParseException {
         this.schema = schema;
         argsList = Arrays.asList(args);
         parse();
     }
 
-    private void parse() throws ArgumentException, ParseException, ArgsException {
+    private void parse() throws ArgumentException, ParseException {
         parseSchema();
         parseArguments();
     }
@@ -53,7 +53,7 @@ public class Args {
         }
     }
 
-    private boolean parseArguments() throws ArgsException, ArgumentException {
+    private boolean parseArguments() throws  ArgumentException {
         for (currentArgument = argsList.iterator(); currentArgument.hasNext(); ) {
             String arg = currentArgument.next();
             parseArgument(arg);
@@ -61,17 +61,17 @@ public class Args {
         return true;
     }
 
-    private void parseArgument(String arg) throws ArgsException, ArgumentException {
+    private void parseArgument(String arg) throws  ArgumentException {
         if (arg.startsWith("-"))
             parseElements(arg);
     }
 
-    private void parseElements(String arg) throws ArgsException, ArgumentException {
+    private void parseElements(String arg) throws  ArgumentException {
         for (int i = 1; i < arg.length(); i++)
             parseElement(arg.charAt(i));
     }
 
-    private void parseElement(char argChar) throws ArgumentException, ArgsException {
+    private void parseElement(char argChar) throws ArgumentException {
         if (setArgument(argChar))
             argsFound.add(argChar);
         else {
@@ -79,7 +79,7 @@ public class Args {
         }
     }
 
-    private boolean setArgument(char argChar) throws ArgsException, ArgumentException {
+    private boolean setArgument(char argChar) throws ArgumentException {
         ArgumentMarshaler am = marshalerMap.get(argChar);
         if (am == null) {
             return false;
@@ -134,8 +134,5 @@ public class Args {
 
     public boolean has(char arg) {
         return argsFound.contains(arg);
-    }
-
-    private class ArgsException extends Exception {
     }
 }
