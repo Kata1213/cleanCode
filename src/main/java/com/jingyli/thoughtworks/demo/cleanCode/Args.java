@@ -12,7 +12,7 @@ public class Args {
     private Iterator<String> currentArgument;
     private List<String> argsList;
 
-    public Args(String schema, String[] args) throws ArgumentException,ParseException {
+    public Args(String schema, String[] args) throws ArgumentException, ParseException {
         this.schema = schema;
         argsList = Arrays.asList(args);
         parse();
@@ -36,14 +36,14 @@ public class Args {
         char elementId = element.charAt(0);
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
-        if(elementTail.length()==0)
-            marshalerMap.put(elementId,new BooleanArgumentMarshaler());
+        if (elementTail.length() == 0)
+            marshalerMap.put(elementId, new BooleanArgumentMarshaler());
         else if (elementTail.equals("*"))
             marshalerMap.put(elementId, new StringArgumentMarshaler());
         else if (elementTail.equals("#"))
-            marshalerMap.put(elementId,new IntegerArgumentMarshaler());
+            marshalerMap.put(elementId, new IntegerArgumentMarshaler());
         else
-            throw new ArgumentException(elementId,elementTail,ErrorCode.INVALID_FORMAT);
+            throw new ArgumentException(elementId, elementTail, ErrorCode.INVALID_FORMAT);
     }
 
     private void validateSchemaElementId(char elementId) throws ParseException {
@@ -53,7 +53,7 @@ public class Args {
         }
     }
 
-    private boolean parseArguments() throws  ArgumentException {
+    private boolean parseArguments() throws ArgumentException {
         for (currentArgument = argsList.iterator(); currentArgument.hasNext(); ) {
             String arg = currentArgument.next();
             parseArgument(arg);
@@ -61,12 +61,12 @@ public class Args {
         return true;
     }
 
-    private void parseArgument(String arg) throws  ArgumentException {
+    private void parseArgument(String arg) throws ArgumentException {
         if (arg.startsWith("-"))
             parseElements(arg);
     }
 
-    private void parseElements(String arg) throws  ArgumentException {
+    private void parseElements(String arg) throws ArgumentException {
         for (int i = 1; i < arg.length(); i++)
             parseElement(arg.charAt(i));
     }
@@ -75,7 +75,7 @@ public class Args {
         if (setArgument(argChar))
             argsFound.add(argChar);
         else {
-            throw  new ArgumentException(argChar,null,ErrorCode.UNEXPECTED_ARGUMENT);
+            throw new ArgumentException(argChar, null, ErrorCode.UNEXPECTED_ARGUMENT);
         }
     }
 
